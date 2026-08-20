@@ -6,414 +6,319 @@
     <title>Wayne's Automotive Repairs & Services | West Warwick, RI</title>
     <style>
         :root {
-            --primary: #1e293b;
-            --primary-light: #334155;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --bg-light: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --primary-blue: #1A365D;
+            --accent-blue: #2B6CB0;
+            --hydraulic-blue: #0055A5;
+            --dark-gray: #1A202C;
+            --light-bg: #F7FAFC;
+            --white: #FFFFFF;
+            --text-dark: #2D3748;
+            --star-gold: #ECC94B;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light-bg);
             color: var(--text-dark);
-            background-color: var(--bg-light);
             line-height: 1.6;
         }
 
-        /* Top Bar & Header */
-        .top-bar {
-            background-color: var(--primary);
-            color: #94a3b8;
-            font-size: 0.875rem;
-            padding: 0.5rem 1rem;
-            text-align: center;
-        }
-
         header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .header-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .brand-name {
-            font-size: 1.35rem;
+        .logo h1 {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--hydraulic-blue);
+            background: var(--white);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        nav a {
+            color: var(--white);
             text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        .brand-sub {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 400;
-            display: block;
+        nav a:hover {
+            color: #90CDF4;
         }
 
-        .btn-phone {
-            background-color: var(--accent);
-            color: #ffffff;
-            padding: 0.65rem 1.25rem;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-phone:hover {
-            background-color: var(--accent-hover);
-        }
-
-        /* Hero Section */
         .hero {
-            background-color: var(--primary);
-            color: #ffffff;
-            padding: 4rem 1.5rem;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.75)), url('wayneswebsite.jpg') center/cover no-repeat;
+            color: var(--white);
             text-align: center;
+            padding: 2rem;
         }
 
         .hero-content {
-            max-width: 700px;
-            margin: 0 auto;
+            max-width: 800px;
         }
 
-        .hero h1 {
-            font-size: 2.25rem;
-            font-weight: 700;
+        .hero h2 {
+            font-size: 3rem;
             margin-bottom: 1rem;
-            line-height: 1.2;
+            font-weight: 800;
         }
 
         .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: #E2E8F0;
+        }
+
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .stars {
+            color: var(--star-gold);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: var(--white);
+            padding: 0.9rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
             font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 1.75rem;
+            transition: background 0.3s, transform 0.2s;
+            margin: 0.5rem;
         }
 
-        .badge-row {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
+        .cta-btn:hover {
+            background-color: #3182CE;
+            transform: translateY(-2px);
         }
 
-        .badge {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #f1f5f9;
-            padding: 0.35rem 0.85rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-        }
-
-        /* Layout Container */
-        .main-container {
-            max-width: 1100px;
-            margin: 3rem auto;
-            padding: 0 1.5rem;
+        .info-bar {
+            background-color: var(--dark-gray);
+            color: var(--white);
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 5%;
+            text-align: center;
         }
 
-        @media (max-width: 850px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                margin: 2rem auto;
-            }
+        .info-item h3 {
+            font-size: 1.1rem;
+            color: #90CDF4;
+            margin-bottom: 0.5rem;
         }
 
-        /* Section Styling */
-        section {
-            margin-bottom: 3rem;
+        .services {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-title {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border);
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 2.5rem;
         }
 
-        /* Services Grid */
-        .services-grid {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
-        .service-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-blue);
         }
 
-        .service-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
         }
 
-        .service-card h3 {
-            font-size: 1.05rem;
-            color: var(--primary);
-            margin-bottom: 0.35rem;
-        }
-
-        .service-card p {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        /* Testimonials */
-        .reviews-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .reviews {
+            background-color: #EDF2F7;
+            padding: 4rem 5%;
         }
 
         .review-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-        }
-
-        .review-quote {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            margin-bottom: 0.75rem;
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .review-author {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-weight: bold;
+            margin-top: 0.5rem;
+            color: var(--accent-blue);
         }
 
-        /* Sidebar Cards */
-        .sidebar-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .sidebar-card h3 {
-            font-size: 1.1rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .info-group {
-            margin-bottom: 1rem;
-        }
-
-        .info-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .info-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .hours-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            padding: 0.35rem 0;
-            border-bottom: 1px dashed var(--border);
-        }
-
-        .hours-row:last-child {
-            border-bottom: none;
-        }
-
-        .btn-directions {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background-color: var(--bg-light);
-            color: var(--primary);
-            border: 1px solid var(--border);
-            padding: 0.65rem;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-directions:hover {
-            background-color: #e2e8f0;
-        }
-
-        /* Footer */
         footer {
-            background-color: var(--primary);
-            color: #94a3b8;
+            background-color: var(--primary-blue);
+            color: var(--white);
             text-align: center;
-            padding: 2rem 1.5rem;
-            font-size: 0.875rem;
-            margin-top: 4rem;
+            padding: 2rem 5%;
+            font-size: 0.9rem;
+        }
+
+        .badge-lgbtq {
+            display: inline-block;
+            background: #4A5568;
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav a {
+                margin: 0 0.5rem;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        27 River St, West Warwick, RI 02893 &nbsp;|&nbsp; Direct Line: (401) 615-0013
-    </div>
-
     <header>
-        <div class="header-container">
-            <div>
-                <a href="#" class="brand-name">Wayne's Automotive</a>
-                <span class="brand-sub">Repairs & Services</span>
-            </div>
-            <a href="tel:4016150013" class="btn-phone">
-                Call (401) 615-0013
-            </a>
+        <div class="logo">
+            <h1>Wayne's <span>Auto</span></h1>
         </div>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#location">Location & Hours</a>
+        </nav>
     </header>
 
-    <div class="hero">
+    <section class="hero">
         <div class="hero-content">
-            <h1>Dependable Auto Repair in West Warwick</h1>
-            <p>Straightforward diagnostics, quality workmanship, and repairs backed by a complete work guarantee.</p>
-            <div class="badge-row">
-                <span class="badge">Guaranteed Work</span>
-                <span class="badge">Local & Independent</span>
-                <span class="badge">LGBTQ+ Friendly</span>
+            <div class="rating-badge">
+                <span class="stars">★★★★★</span>
+                <span>5.0 Rating (8 Reviews)</span>
+            </div>
+            <h2>Honest, Quality Automotive Repairs</h2>
+            <p>Your trusted local mechanics in West Warwick, RI. From front-end work to full transmission repairs—all work guaranteed.</p>
+            <div>
+                <a href="tel:4016150013" class="cta-btn">Call (401) 615-0013</a>
+                <a href="#location" class="cta-btn" style="background-color: transparent; border: 2px solid white;">Get Directions</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="main-container">
-        <main>
-            <section>
-                <h2 class="section-title">About the Shop</h2>
-                <p style="color: var(--text-dark); margin-bottom: 1rem;">
-                    Wayne's Automotive Repairs & Services provides comprehensive automotive care for domestic and import vehicles. We focus on diagnosing issues accurately, offering honest assessments, and delivering reliable repairs without unexpected costs.
-                </p>
-                <p style="color: var(--text-dark);">
-                    Whether you are dealing with persistent mechanical issues or routine maintenance, every vehicle is handled with attention to detail and care.
-                </p>
-            </section>
+    <section class="info-bar" id="location">
+        <div class="info-item">
+            <h3>📍 Address</h3>
+            <p>27 River St<br>West Warwick, RI 02893</p>
+        </div>
+        <div class="info-item">
+            <h3>⏰ Hours</h3>
+            <p>Opens 8:00 AM Friday<br>Call for full weekly schedule</p>
+        </div>
+        <div class="info-item">
+            <h3>📞 Direct Line</h3>
+            <p>(401) 615-0013</p>
+            <span class="badge-lgbtq">🏳️‍🌈 LGBTQ+ Friendly</span>
+        </div>
+    </section>
 
-            <section>
-                <h2 class="section-title">Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <h3>Diagnostics</h3>
-                        <p>Accurate engine and system troubleshooting.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Front End Repairs</h3>
-                        <p>Suspension, alignment, and steering components.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Transmission</h3>
-                        <p>Fluid service, repair, and component maintenance.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Brake Systems</h3>
-                        <p>Pads, rotors, line repairs, and system flushes.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Engine Care</h3>
-                        <p>General mechanical repairs and component replacement.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Maintenance</h3>
-                        <p>Routine checkups and preventive auto care.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h2 class="section-title">Customer Feedback</h2>
-                <div class="reviews-container">
-                    <div class="review-card">
-                        <div class="review-quote">"Great service! Quality mechanics on duty. I had a mess of problems with my truck. Wayne and his guys did a fantastic job! And all his work is guaranteed!"</div>
-                        <div class="review-author">— David A., Verified Local Customer</div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-quote">"Wayne fixed my front end problem that other stations could not fix and he took care of my transmission issues. Highly recommended!"</div>
-                        <div class="review-author">— Michael V., Verified Local Customer</div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <aside>
-            <div class="sidebar-card">
-                <h3>Contact & Location</h3>
-                <div class="info-group">
-                    <div class="info-label">Address</div>
-                    <div>27 River St<br>West Warwick, RI 02893</div>
-                </div>
-                <div class="info-group" style="margin-top: 1rem;">
-                    <div class="info-label">Phone</div>
-                    <div><a href="tel:4016150013" style="color: var(--accent); font-weight: 600; text-decoration: none;">(401) 615-0013</a></div>
-                </div>
-                <a href="https://maps.google.com/?q=27+River+St+West+Warwick+RI+02893" target="_blank" class="btn-directions">
-                    Get Directions
-                </a>
+    <section class="services" id="services">
+        <h2 class="section-title">Our Repair & Maintenance Services</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Transmission Repair</h3>
+                <p>Expert diagnosis and repair for complex transmission issues to keep your vehicle shifting smoothly.</p>
             </div>
-
-            <div class="sidebar-card">
-                <h3>Hours of Operation</h3>
-                <div class="hours-row"><span>Monday</span> <span>8:00 AM – 5:00 PM</span></div>
-                <div class="hours-row"><span>Tuesday</span> <span>8:00 AM – 5:00 PM</span></div>
-                <div class="hours-row"><span>Wednesday</span> <span>8:00 AM – 5:00 PM</span></div>
-                <div class="hours-row"><span>Thursday</span> <span>8:00 AM – 5:00 PM</span></div>
-                <div class="hours-row"><span>Friday</span> <span>8:00 AM – 5:00 PM</span></div>
-                <div class="hours-row"><span>Saturday</span> <span>8:00 AM – 1:00 PM</span></div>
-                <div class="hours-row"><span>Sunday</span> <span>Closed</span></div>
+            <div class="card">
+                <h3>Front End & Steering</h3>
+                <p>Resolving tough front-end problems, suspension issues, and steering misalignments other shops miss.</p>
             </div>
-        </aside>
-    </div>
+            <div class="card">
+                <h3>General Auto Mechanics</h3>
+                <p>Comprehensive repairs for all makes and models, from routine maintenance to major overhaul jobs.</p>
+            </div>
+            <div class="card">
+                <h3>Guaranteed Work</h3>
+                <p>We stand behind every repair with guaranteed craftsmanship and fair, honest pricing.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="grid" style="max-width: 1000px; margin: 0 auto;">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Wayne fixed my front end problem that other stations could not fix and he took care of my transmission issues. Highly recommended!"</p>
+                <div class="review-author">- Michael Valois</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Great service! Quality mechanics on duty. Wayne and his guys did a fantastic job! And all his work is guaranteed!"</p>
+                <div class="review-author">- David Allen</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Wayne always bails me out when the junkers I drive fall apart on me. Not sure what I'd do without him."</p>
+                <div class="review-author">- aokigahara zx</div>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; Wayne's Automotive Repairs & Services. All rights reserved.</p>
+        <p>&copy; Wayne's Automotive Repairs & Services. All Rights Reserved.</p>
+        <p>27 River St, West Warwick, RI 02893 | (401) 615-0013</p>
     </footer>
 
 </body>
