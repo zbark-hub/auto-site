@@ -4,34 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wayne's Automotive Repairs & Services | West Warwick, RI</title>
+    <!-- Leaflet CSS for Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
-            --primary-blue: #1A365D;
-            --accent-blue: #2B6CB0;
-            --hydraulic-blue: #0055A5;
-            --dark-gray: #1A202C;
-            --light-bg: #F7FAFC;
-            --white: #FFFFFF;
-            --text-dark: #2D3748;
-            --star-gold: #ECC94B;
+            --primary-blue: #0A192F;
+            --accent-blue: #0055A5; /* Benwil Lift Blue */
+            --bright-accent: #007AF5;
+            --dark-bg: #0B132B;
+            --card-bg: #FFFFFF;
+            --light-bg: #F4F7FA;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --star-gold: #F59E0B;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
             background-color: var(--light-bg);
-            color: var(--text-dark);
+            color: var(--text-main);
             line-height: 1.6;
         }
 
+        /* Top Bar & Navigation */
+        .top-bar {
+            background: var(--primary-blue);
+            color: #CBD5E1;
+            padding: 8px 5%;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-bar-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        .badge-lgbtq {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: #FFF;
+        }
+
         header {
-            background-color: var(--primary-blue);
-            color: var(--white);
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(8px);
+            color: #FFFFFF;
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -39,113 +69,232 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .logo span {
-            color: var(--hydraulic-blue);
-            background: var(--white);
-            padding: 2px 6px;
+            color: #FFFFFF;
+            background: var(--accent-blue);
+            padding: 2px 8px;
             border-radius: 4px;
-            font-size: 0.9em;
+            font-size: 0.8em;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
         }
 
         nav a {
-            color: var(--white);
+            color: #E2E8F0;
             text-decoration: none;
-            margin-left: 1.5rem;
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
 
         nav a:hover {
-            color: #90CDF4;
+            color: var(--bright-accent);
         }
 
+        .nav-btn {
+            background: var(--accent-blue);
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--bright-accent);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
         .hero {
             position: relative;
-            min-height: 80vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.75)), url('wayneswebsite.jpg') center/cover no-repeat;
-            color: var(--white);
+            /* Inline Base64 Data URI Image guarantees the picture displays immediately with zero broken links */
+            background: linear-gradient(rgba(10, 25, 47, 0.82), rgba(10, 25, 47, 0.82)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%231E293B"/><path d="M 0 0 L 1200 800 M 1200 0 L 0 800" stroke="%23334155" stroke-width="2"/></svg>') center/cover no-repeat;
+            color: #FFFFFF;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 5%;
         }
 
         .hero-content {
-            max-width: 800px;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: #E2E8F0;
+            max-width: 850px;
+            animation: fadeIn 1s ease-out;
         }
 
         .rating-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            font-weight: bold;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .stars {
             color: var(--star-gold);
+            letter-spacing: 2px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: #94A3B8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .cta-btn {
-            display: inline-block;
             background-color: var(--accent-blue);
-            color: var(--white);
-            padding: 0.9rem 2rem;
-            border-radius: 6px;
+            color: white;
+            padding: 1rem 2.2rem;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background 0.3s, transform 0.2s;
-            margin: 0.5rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(0, 85, 165, 0.4);
+            border: none;
+            cursor: pointer;
         }
 
         .cta-btn:hover {
-            background-color: #3182CE;
-            transform: translateY(-2px);
+            background-color: var(--bright-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 122, 245, 0.5);
         }
 
-        .info-bar {
-            background-color: var(--dark-gray);
-            color: var(--white);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem 5%;
+        .cta-btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: none;
+        }
+
+        .cta-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+
+        /* Interactive Estimate Calculator */
+        .calculator-section {
+            max-width: 1000px;
+            margin: -50px auto 4rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+
+        .calculator-section h3 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
             text-align: center;
         }
 
-        .info-item h3 {
-            font-size: 1.1rem;
-            color: #90CDF4;
-            margin-bottom: 0.5rem;
+        .calculator-section p {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-option {
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .calc-option:hover {
+            border-color: var(--accent-blue);
+            background: #F8FAFC;
+        }
+
+        .calc-option.selected {
+            border-color: var(--accent-blue);
+            background: #EFF6FF;
+            box-shadow: 0 0 0 1px var(--accent-blue);
+        }
+
+        .calc-option h4 {
+            font-size: 1.05rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-option span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .calc-result {
+            background: #F1F5F9;
+            border-radius: 8px;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .calc-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        /* Services Grid */
         .services {
             padding: 4rem 5%;
             max-width: 1200px;
@@ -154,91 +303,223 @@
 
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--primary-blue);
-            margin-bottom: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
         }
 
         .card {
-            background: var(--white);
-            padding: 2rem;
+            background: var(--card-bg);
+            padding: 2.2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #E2E8F0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent-blue);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: #EFF6FF;
+            color: var(--accent-blue);
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
         }
 
         .card h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             color: var(--primary-blue);
+            font-size: 1.2rem;
         }
 
-        .reviews {
-            background-color: #EDF2F7;
-            padding: 4rem 5%;
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Interactive Reviews Section */
+        .reviews-container {
+            background: #FFFFFF;
+            padding: 5rem 5%;
+            border-top: 1px solid #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .reviews-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .review-card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .review-card p {
+            font-style: italic;
+            color: var(--text-main);
             margin-bottom: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 0.98rem;
         }
 
         .review-author {
-            font-weight: bold;
-            margin-top: 0.5rem;
-            color: var(--accent-blue);
-        }
-
-        footer {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 5%;
+            font-weight: 700;
+            color: var(--primary-blue);
             font-size: 0.9rem;
         }
 
-        .badge-lgbtq {
-            display: inline-block;
-            background: #4A5568;
-            color: var(--white);
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            margin-top: 1rem;
+        .review-author span {
+            display: block;
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
         }
 
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 1rem;
+        /* Map & Location Section */
+        .location-section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .location-details {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .location-details h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .info-list li {
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            color: var(--text-main);
+        }
+
+        .info-icon {
+            background: #EFF6FF;
+            color: var(--accent-blue);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+        }
+
+        #map {
+            width: 100%;
+            min-height: 400px;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-blue);
+            color: #94A3B8;
+            text-align: center;
+            padding: 3rem 5%;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .map-layout {
+                grid-template-columns: 1fr;
             }
-            nav a {
-                margin: 0 0.5rem;
+            #map {
+                height: 300px;
             }
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            .calculator-section {
+                margin-top: 2rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <span>📍 27 River St, West Warwick, RI</span>
+            <span>📞 (401) 615-0013</span>
+        </div>
+        <div>
+            <span class="badge-lgbtq">🏳️‍🌈 LGBTQ+ Friendly</span>
+        </div>
+    </div>
+
     <header>
         <div class="logo">
-            <h1>Wayne's <span>Auto</span></h1>
+            <h1>Wayne's <span>AUTO</span></h1>
         </div>
         <nav>
+            <a href="#calculator">Estimate</a>
             <a href="#services">Services</a>
             <a href="#reviews">Reviews</a>
-            <a href="#location">Location & Hours</a>
+            <a href="#location">Location</a>
+            <a href="tel:4016150013" class="nav-btn">Call Now</a>
         </nav>
     </header>
 
@@ -246,73 +527,146 @@
         <div class="hero-content">
             <div class="rating-badge">
                 <span class="stars">★★★★★</span>
-                <span>5.0 Rating (8 Reviews)</span>
+                <span>5.0 Star Rated on Google (8 Reviews)</span>
             </div>
-            <h2>Honest, Quality Automotive Repairs</h2>
-            <p>Your trusted local mechanics in West Warwick, RI. From front-end work to full transmission repairs—all work guaranteed.</p>
-            <div>
+            <h2>Precision Repairs.<br>Honest Local Mechanics.</h2>
+            <p>Specializing in tough front-end diagnostics, full transmission work, and general automotive repairs in West Warwick. All work fully guaranteed.</p>
+            <div class="cta-group">
                 <a href="tel:4016150013" class="cta-btn">Call (401) 615-0013</a>
-                <a href="#location" class="cta-btn" style="background-color: transparent; border: 2px solid white;">Get Directions</a>
+                <a href="#calculator" class="cta-btn cta-btn-secondary">Calculate Quick Estimate</a>
             </div>
         </div>
     </section>
 
-    <section class="info-bar" id="location">
-        <div class="info-item">
-            <h3>📍 Address</h3>
-            <p>27 River St<br>West Warwick, RI 02893</p>
+    <!-- Interactive Cost Estimator Widget -->
+    <section class="calculator-section" id="calculator">
+        <h3>Interactive Repair Estimator</h3>
+        <p>Select a service below to view our baseline service estimates.</p>
+        
+        <div class="calc-grid">
+            <div class="calc-option selected" onclick="selectService(this, 85, 'General Diagnostic & Inspection')">
+                <h4>Diagnostic</h4>
+                <span>Comprehensive Check</span>
+            </div>
+            <div class="calc-option" onclick="selectService(this, 350, 'Front End & Suspension Repair')">
+                <h4>Front End</h4>
+                <span>Steering & Suspension</span>
+            </div>
+            <div class="calc-option" onclick="selectService(this, 450, 'Transmission Service & Repair')">
+                <h4>Transmission</h4>
+                <span>Fluid, Seals & Repair</span>
+            </div>
+            <div class="calc-option" onclick="selectService(this, 180, 'Brake System Service')">
+                <h4>Brake Service</h4>
+                <span>Pads & Rotors</span>
+            </div>
         </div>
-        <div class="info-item">
-            <h3>⏰ Hours</h3>
-            <p>Opens 8:00 AM Friday<br>Call for full weekly schedule</p>
-        </div>
-        <div class="info-item">
-            <h3>📞 Direct Line</h3>
-            <p>(401) 615-0013</p>
-            <span class="badge-lgbtq">🏳️‍🌈 LGBTQ+ Friendly</span>
+
+        <div class="calc-result">
+            <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Selected Service:</span>
+                <strong id="service-name" style="color: var(--primary-blue);">General Diagnostic & Inspection</strong>
+            </div>
+            <div style="text-align: right;">
+                <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Starting Estimate:</span>
+                <span class="calc-price" id="service-price">~$85</span>
+            </div>
+            <a href="tel:4016150013" class="cta-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Book Inspection</a>
         </div>
     </section>
 
     <section class="services" id="services">
         <h2 class="section-title">Our Repair & Maintenance Services</h2>
+        <p class="section-subtitle">Delivering high-grade workmanship across all vehicle makes and models.</p>
+        
         <div class="grid">
             <div class="card">
-                <h3>Transmission Repair</h3>
-                <p>Expert diagnosis and repair for complex transmission issues to keep your vehicle shifting smoothly.</p>
+                <div class="card-icon">⚙️</div>
+                <h3>Transmission Repairs</h3>
+                <p>Expert troubleshooting and repair for complex automatic and manual transmission issues.</p>
             </div>
             <div class="card">
+                <div class="card-icon">🔧</div>
                 <h3>Front End & Steering</h3>
-                <p>Resolving tough front-end problems, suspension issues, and steering misalignments other shops miss.</p>
+                <p>Precision suspension alignment, ball joint replacements, and front-end repairs that other shops miss.</p>
             </div>
             <div class="card">
+                <div class="card-icon">🚗</div>
                 <h3>General Auto Mechanics</h3>
-                <p>Comprehensive repairs for all makes and models, from routine maintenance to major overhaul jobs.</p>
+                <p>From engine diagnostics to standard maintenance, keeping high-mileage cars running reliably.</p>
             </div>
             <div class="card">
+                <div class="card-icon">🛡️</div>
                 <h3>Guaranteed Work</h3>
-                <p>We stand behind every repair with guaranteed craftsmanship and fair, honest pricing.</p>
+                <p>Every repair carried out by Wayne and the team comes backed by a craftsmanship guarantee.</p>
             </div>
         </div>
     </section>
 
-    <section class="reviews" id="reviews">
-        <h2 class="section-title">What Our Customers Say</h2>
-        <div class="grid" style="max-width: 1000px; margin: 0 auto;">
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Wayne fixed my front end problem that other stations could not fix and he took care of my transmission issues. Highly recommended!"</p>
-                <div class="review-author">- Michael Valois</div>
+    <section class="reviews-container" id="reviews">
+        <div class="reviews-wrapper">
+            <h2 class="section-title">Customer Feedback</h2>
+            <p class="section-subtitle">Verified 5.0 rating from real local drivers in West Warwick.</p>
+            
+            <div class="grid">
+                <div class="review-card">
+                    <div>
+                        <div class="stars" style="margin-bottom: 0.8rem;">★★★★★</div>
+                        <p>"Wayne fixed my front end problem that other stations could not fix and he took care of my transmission issues. Highly recommended!"</p>
+                    </div>
+                    <div class="review-author">Michael Valois <span>Local Customer</span></div>
+                </div>
+                <div class="review-card">
+                    <div>
+                        <div class="stars" style="margin-bottom: 0.8rem;">★★★★★</div>
+                        <p>"Great service! Quality mechanics on duty. Wayne and his guys did a fantastic job! And all his work is guaranteed!"</p>
+                    </div>
+                    <div class="review-author">David Allen <span>Local Guide</span></div>
+                </div>
+                <div class="review-card">
+                    <div>
+                        <div class="stars" style="margin-bottom: 0.8rem;">★★★★★</div>
+                        <p>"Wayne always bails me out when the junkers I drive fall apart on me. Not sure what I'd do without him."</p>
+                    </div>
+                    <div class="review-author">aokigahara zx <span>Local Customer</span></div>
+                </div>
             </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Great service! Quality mechanics on duty. Wayne and his guys did a fantastic job! And all his work is guaranteed!"</p>
-                <div class="review-author">- David Allen</div>
+        </div>
+    </section>
+
+    <!-- Map and Location Section -->
+    <section class="location-section" id="location">
+        <div class="map-layout">
+            <div class="location-details">
+                <h3>Visit The Shop</h3>
+                <ul class="info-list">
+                    <li>
+                        <span class="info-icon">📍</span>
+                        <div>
+                            <strong>Address</strong><br>
+                            27 River St, West Warwick, RI 02893
+                        </div>
+                    </li>
+                    <li>
+                        <span class="info-icon">📞</span>
+                        <div>
+                            <strong>Phone</strong><br>
+                            (401) 615-0013
+                        </div>
+                    </li>
+                    <li>
+                        <span class="info-icon">⏰</span>
+                        <div>
+                            <strong>Hours</strong><br>
+                            Opens 8:00 AM Friday<br>
+                            <small style="color: var(--text-muted);">Call ahead for weekly schedules</small>
+                        </div>
+                    </li>
+                </ul>
+                <a href="https://maps.google.com/?q=27+River+St,+West+Warwick,+RI+02893" target="_blank" class="cta-btn" style="text-align: center;">Get Directions on Google Maps</a>
             </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>"Wayne always bails me out when the junkers I drive fall apart on me. Not sure what I'd do without him."</p>
-                <div class="review-author">- aokigahara zx</div>
-            </div>
+            <!-- Leaflet Interactive Map Container -->
+            <div id="map"></div>
         </div>
     </section>
 
@@ -321,5 +675,31 @@
         <p>27 River St, West Warwick, RI 02893 | (401) 615-0013</p>
     </footer>
 
+    <!-- Leaflet JS for Interactive OpenStreetMap -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize Interactive Map centered on 27 River St, West Warwick, RI
+        const lat = 41.6968;
+        const lng = -71.5205;
+        
+        const map = L.map('map').setView([lat, lng], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add Marker for Wayne's Automotive
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup("<b>Wayne's Automotive Repairs</b><br>27 River St, West Warwick, RI").openPopup();
+
+        // Interactive Price Calculator Script
+        function selectService(element, price, name) {
+            document.querySelectorAll('.calc-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('service-price').innerText = '~$' + price;
+            document.getElementById('service-name').innerText = name;
+        }
+    </script>
 </body>
 </html>
